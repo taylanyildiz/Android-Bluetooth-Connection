@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int SEND_SMS_REQUEST_CODE = 1;
     private SmsManager smsManager;
     private static final String APP_NAME = "HC_06";
-    private static final UUID MY_UUID=UUID.fromString("8ce255c0-223a-11e0-ac64-0803450c9a66");
+    private static final UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     private BluetoothAdapter adapter;
     private BluetoothDevice device;
     private Intent blueIntent;
@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         textViewBlueData2.setText(tempMsg);
                         data2 = tempMsg;
                         i = 0;
-                        if(data2.equals("100")){
+                        if(data2.equals("Y")){
                             textViewSmsdata.setText("Mesaj Gönderiliyor\nPort : "+data1+"\nEnerji Bilgisi :"+data2);
                             if(n1 != null){
                                 if(!n1.isEmpty()) {
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                             }
                         }
-                        else if(data2.equals("200")){
+                        else if(data2.equals("X")){
                             textViewSmsdata.setText("Mesaj Gönderiliyor\nPort : "+data1+"\nEnerji Bilgisi :"+data2);
                             if(n1 != null){
                                 if(!n1.isEmpty()) {
@@ -317,6 +317,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                             }
 
+                        }
+                        else {
+                            textViewSmsdata.setText("Mesaj Gönderilemedi..");
                         }
                     }
 
@@ -405,9 +408,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private String n1,n2,n3,n4,n5;
-    private ArrayList<String> numbers;
+    private Set<String> numbers;
     private void addPhoneNumber(){
-        numbers = new ArrayList<String>();
+        numbers = new HashSet<>();
         viewPhone = getLayoutInflater().inflate(R.layout.phone_number,null);
         editText1 = viewPhone.findViewById(R.id.editTextNumber1);
         editText2 = viewPhone.findViewById(R.id.editTextNumber2);
@@ -427,6 +430,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 n1 = editText1.getText().toString();
                 n2 = editText2.getText().toString();
                 n3 = editText3.getText().toString();
